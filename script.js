@@ -80,4 +80,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fetch rates and initialize currency options on load
     fetchRates();
+    const convertcurrency = () => {
+        if (!validateInput()) {
+            return;
+        }
+
+        const amount = parseFloat(amountInput.value);
+        const fromCurrency = fromCurrencySelect.value;
+        const toCurrency = toCurrencySelect.value;
+
+        const rate = rates[toCurrency] / rates[fromCurrency];
+        const convertedAmount = amount * rate;
+        resultParagraph.textContent = `${convertedAmount.toFixed(2)} ${toCurrency}`;
+    };
+
+    const reversecurrencies = () => {
+        const fromCurrency = fromCurrencySelect.value;
+        const toCurrency = toCurrencySelect.value;
+
+        fromCurrencySelect.value = toCurrency;
+        toCurrencySelect.value = fromCurrency;
+
+        convertCurrency();
+    };
 });
